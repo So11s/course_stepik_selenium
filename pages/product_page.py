@@ -26,8 +26,9 @@ class ProductPage(BasePage):
         message_basket_total = self.browser.find_element(*ProductPageLocator.MESSAGE_BASKET_TOTAL).text
         product_price = self.browser.find_element(*ProductPageLocator.PRODUCT_PRICE).text
         assert product_price in message_basket_total, "No product price in the message"
-        assert self.should_be_product_on_page() in self.browser.find_element(*ProductPageLocator.PRODUCT_NAME_IN_BASKET).text, \
-            "Incorrect name product in basket"
+        assert self.should_be_product_on_page() == \
+               self.browser.find_element(*ProductPageLocator.PRODUCT_NAME_IN_BASKET).text, (
+            "Incorrect name product in basket")
 
     def solve_quiz_and_get_code(self):
         WebDriverWait(self.browser, 3).until(EC.alert_is_present())
