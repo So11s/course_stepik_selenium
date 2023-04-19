@@ -8,10 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class ProductPage(BasePage):
-    def __init__(self, browser, url, timeout=0):
-        super().__init__(browser, url)
-        self.browser.implicitly_wait(timeout)
-
     def go_to_product_page(self):
         button_add = self.browser.find_element(*ProductPageLocators.BUTTON_ADD_LINK)
         button_add.click()
