@@ -6,6 +6,30 @@ from .pages.basket_page import BasketPage
 num_promo = [num if num != 7 else pytest.param(num, marks=pytest.mark.xfail) for num in range(10)]
 
 
+class TestUserAddToBasketFromProductPage:
+    @pytest.mark.xfail
+    def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+        url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        page = ProductPage(browser, url)
+        page.open()
+        page.go_to_product_page()
+        page.should_not_be_success_message()
+
+    def test_guest_cant_see_success_message(browser):
+        url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        page = ProductPage(browser, url)
+        page.open()
+        page.should_not_be_success_message()
+
+    @pytest.mark.xfail
+    def test_message_disappeared_after_adding_product_to_basket(browser):
+        url = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        page = ProductPage(browser, url)
+        page.open()
+        page.go_to_product_page()
+        page.should_not_be_success_message_all_time()
+
+
 @pytest.mark.parametrize('link', num_promo)
 def test_guest_can_add_product_to_basket(browser, link):
     link = f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{num_promo}"
