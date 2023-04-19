@@ -1,6 +1,7 @@
 import pytest
 
 from .pages.product_page import ProductPage
+from .pages.basket_page import BasketPage
 
 num_promo = [num if num != 7 else pytest.param(num, marks=pytest.mark.xfail) for num in range(10)]
 
@@ -29,3 +30,12 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.open()
     page.go_to_login_page()
 
+
+@pytest.mark.new
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/ru/catalogue/the-shellcoders-handbook_209/"
+    page = BasketPage(browser, link, timeout=10)
+    page.open()
+    page.go_to_basket_page()
+    page.basket_should_be_empty()
+    page.message_basket_is_empty()
