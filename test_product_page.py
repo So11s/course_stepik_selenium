@@ -11,11 +11,11 @@ class TestUserAddToBasketFromProductPage:
     @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser):
         LOGIN_URL = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
-        email = f"{str(time.time())}@fakemail.org"
-        password = str(time.time())
+        EMAIL = f"{str(time.time())}@fakemail.org"
+        PASSWORD = str(time.time())
         self.login_page = LoginPage(browser, LOGIN_URL)
         self.login_page.open()
-        self.login_page.register_new_user(email, password)
+        self.login_page.register_new_user(EMAIL, PASSWORD)
         self.login_page.should_be_authorized_user()
 
     def test_user_can_add_product_to_basket(self, browser):
